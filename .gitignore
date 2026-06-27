@@ -1,0 +1,18 @@
+# Ignore local dataset folder so it is not pushed to GitHub
+dataset/
+# Python cache
+__pycache__/
+*.pyc
+
+# ZIP files
+*.zip
+
+# Node modules
+node_modules/
+
+# Environment files
+.env
+
+# Build folders
+dist/
+build/
