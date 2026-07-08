@@ -268,31 +268,6 @@ The API accepts just 5 simple inputs; the system derives all other features:
 
 ---
 
-## 🐛 Troubleshooting
-
-### Model files not found
-```
-Error: FileNotFoundError: model/model.pkl
-```
-**Solution:** Run the complete pipeline: `python 4_train_model.py`
-
-### CORS errors
-```
-Error: CORS policy blocked
-```
-**Solution:** Ensure frontend is on `http://localhost:3000`. Check `api.py` CORS settings.
-
-### API won't start
-```
-Error: Address already in use
-```
-**Solution:** Kill process on port 8000 or use a different port:
-```bash
-uvicorn api:app --port 8001
-```
-
----
-
 ## Set up React frontend (open a NEW terminal)
 npx create-react-app wildfire-frontend
 cd wildfire-frontend
