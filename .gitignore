@@ -10,9 +10,6 @@ __pycache__/
 # Node modules
 node_modules/
 
-# Environment files
-.env
-
 # Build folders
 dist/
 build/
