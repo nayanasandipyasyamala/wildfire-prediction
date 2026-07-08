@@ -37,7 +37,7 @@ export default function App() {
     if (!city.trim()) return;
     setLoading(true); setError(null); setResult(null);
     try {
-      const res = await fetch(`http://localhost:8000/predict-city/${encodeURIComponent(city.trim())}`);
+      const res = await fetch(`https://wildfire-prediction-nl3m.onrender.com/predict-city/${encodeURIComponent(city.trim())}`);
       if (!res.ok) throw new Error((await res.json()).detail || "City not found");
       setResult({ ...(await res.json()), mode: "city" });
     } catch (e) { setError(e.message); }
@@ -56,7 +56,7 @@ export default function App() {
   const handleSimplePredict = async () => {
     setLoading(true); setError(null); setResult(null);
     try {
-      const res = await fetch("http://localhost:8000/predict-simple", {
+      const res = await fetch("https://wildfire-prediction-nl3m.onrender.com/predict-simple", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, lat: coords.lat, lon: coords.lon }),
