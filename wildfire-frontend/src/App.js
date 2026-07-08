@@ -43,14 +43,14 @@ export default function App() {
     } catch (e) { setError(e.message); }
     setLoading(false);
   };
-  {/* Empty state — city mode only */}
+  /* Empty state — city mode only */}
         {!result && !loading && !error && mode === "city" && (
           <div className="text-center py-20 text-gray-300">
             <div className="text-6xl mb-4">🌍</div>
             <p className="text-lg">Type a city name above to check wildfire risk</p>
             <p className="text-sm mt-2">Try: Mumbai · Sydney · Cape Town · Amazon</p>
           </div>
-        )}
+        )
 
   // ── Simple manual prediction ────────────────────────────────────
   const handleSimplePredict = async () => {
