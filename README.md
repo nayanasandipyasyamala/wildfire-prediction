@@ -4,19 +4,6 @@ A machine learning application that predicts wildfire risk using weather and env
 
 ---
 
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [Model Performance](#model-performance)
-
----
-
 ## 🎯 Overview
 
 This project predicts wildfire risk based on meteorological and geographic factors. It provides:
@@ -299,64 +286,7 @@ The API accepts just 5 simple inputs; the system derives all other features:
 
 ---
 
-## � Troubleshooting
-
-### Model files not found
-
-```
-Error: FileNotFoundError: model/model.pkl
-```
-
-**Solution:** Run the complete pipeline: `python 4_train_model.py`
-
-### CORS errors
-
-```
-Error: CORS policy blocked
-```
-
-**Solution:** Ensure frontend is on `http://localhost:3000`. Check `api.py` CORS settings.
-
-### API won't start
-
-```
-Error: Address already in use
-```
-
-**Solution:** Kill process on port 8000 or use a different port:
-
-```bash
-uvicorn api:app --port 8001
-```
-
----
-
-## 📈 Next Steps
-
-- Add more weather variables to improve model
-- Deploy to cloud (AWS, GCP, Azure)
-- Add real-time data integration
-- Implement model retraining pipeline
-- Add user authentication
-- Create alerts system for extreme risk
-
----
-
-## 📄 License
-
-This project is provided as-is for educational and research purposes.
-
----
-
-## 📧 Support
-
-For issues or questions, please open an issue in the repository.
-
-**Last Updated**: 2024
-
----
-
-## Step 7 — Set up React frontend (open a NEW terminal)
+## Set up React frontend (open a NEW terminal)
 
 npx create-react-app wildfire-frontend
 cd wildfire-frontend
@@ -376,3 +306,16 @@ npm start
 Your browser (React) → sends weather inputs → FastAPI (api.py) →
 loads model.pkl → predicts → sends back risk score + SHAP values →
 React shows result on dashboard
+
+---
+
+## 📈 Next Steps
+
+- Add more weather variables to improve model
+- Deploy to cloud (AWS, GCP, Azure)
+- Add real-time data integration
+- Implement model retraining pipeline
+- Add user authentication
+- Create alerts system for extreme risk
+
+---
