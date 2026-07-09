@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
@@ -6,12 +7,11 @@ export default function App() {
   const [city,    setCity]    = useState("");
   const [form,    setForm]    = useState({ temp: 28, humidity: 40, wind: 18, cloud: 15 });
   const [locMsg,  setLocMsg]  = useState("Click to use your current location");
-  const [coords,  setCoords]  = useState({ lat: 20, lon: 78 });  // default: India center
+  const [coords,  setCoords]  = useState({ lat: 20, lon: 78 });
   const [result,  setResult]  = useState(null);
   const [loading, setLoading] = useState(false);
   const [error,   setError]   = useState(null);
 
-  // ── Get browser GPS ────────────────────────────────────────────
   const getLocation = () => {
     setLocMsg("Detecting...");
     navigator.geolocation.getCurrentPosition(
@@ -32,7 +32,6 @@ export default function App() {
 
   const getRiskEmoji = (label) => ({ Low:"🟢", Moderate:"🟡", High:"🟠", Extreme:"🔴" }[label] || "⚪");
 
-  // ── City prediction ─────────────────────────────────────────────
   const handleCityPredict = async () => {
     if (!city.trim()) return;
     setLoading(true); setError(null); setResult(null);
@@ -43,16 +42,7 @@ export default function App() {
     } catch (e) { setError(e.message); }
     setLoading(false);
   };
-  /* Empty state — city mode only */}
-        {!result && !loading && !error && mode === "city" && (
-          <div className="text-center py-20 text-gray-300">
-            <div className="text-6xl mb-4">🌍</div>
-            <p className="text-lg">Type a city name above to check wildfire risk</p>
-            <p className="text-sm mt-2">Try: Mumbai · Sydney · Cape Town · Amazon</p>
-          </div>
-        )
 
-  // ── Simple manual prediction ────────────────────────────────────
   const handleSimplePredict = async () => {
     setLoading(true); setError(null); setResult(null);
     try {
@@ -68,7 +58,6 @@ export default function App() {
   };
 
   const handleChange = (key, val) => setForm(p => ({ ...p, [key]: parseFloat(val) }));
-
   const switchMode = (m) => { setMode(m); setResult(null); setError(null); };
 
   return (
@@ -101,7 +90,7 @@ export default function App() {
           </button>
         </div>
 
-        {/* ── CITY MODE ── */}
+        {/* City mode */}
         {mode === "city" && (
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
             <p className="text-sm text-gray-500 mb-3">
@@ -136,22 +125,30 @@ export default function App() {
                 </p>
               </div>
             )}
+
+            {/* Globe empty state — city mode only */}
+            {!result && !loading && !error && (
+              <div className="text-center py-16 text-gray-300">
+                <div className="text-6xl mb-4">🌍</div>
+                <p className="text-lg">Type a city name above to check wildfire risk</p>
+                <p className="text-sm mt-2">Try: Mumbai · Sydney · Cape Town · Amazon</p>
+              </div>
+            )}
           </div>
         )}
 
-        {/* ── MANUAL MODE — only 5 simple inputs ── */}
+        {/* Manual mode */}
         {mode === "manual" && (
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
             <p className="text-sm text-gray-500 mb-5">
               Enter basic weather conditions — everything else is calculated automatically
             </p>
-
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
               {[
-                { key: "temp",     label: "Temperature",  unit: "°C",   icon: "🌡️", min: -50, max: 60  },
-                { key: "humidity", label: "Humidity",     unit: "%",    icon: "💧", min: 0,   max: 100 },
-                { key: "wind",     label: "Wind Speed",   unit: "km/h", icon: "💨", min: 0,   max: 150 },
-                { key: "cloud",    label: "Cloud Cover",  unit: "%",    icon: "☁️", min: 0,   max: 100 },
+                { key: "temp",     label: "Temperature", unit: "°C",   icon: "🌡️", min: -50, max: 60  },
+                { key: "humidity", label: "Humidity",    unit: "%",    icon: "💧", min: 0,   max: 100 },
+                { key: "wind",     label: "Wind Speed",  unit: "km/h", icon: "💨", min: 0,   max: 150 },
+                { key: "cloud",    label: "Cloud Cover", unit: "%",    icon: "☁️", min: 0,   max: 100 },
               ].map(({ key, label, unit, icon, min, max }) => (
                 <div key={key} className="bg-gray-50 rounded-xl p-3">
                   <label className="block text-xs text-gray-400 mb-1">{icon} {label}</label>
@@ -164,7 +161,6 @@ export default function App() {
                     />
                     <span className="text-xs text-gray-400 whitespace-nowrap">{unit}</span>
                   </div>
-                  {/* Slider */}
                   <input type="range" min={min} max={max} step="0.5" value={form[key]}
                     onChange={(e) => handleChange(key, e.target.value)}
                     className="w-full mt-2 accent-orange-500" />
@@ -172,7 +168,7 @@ export default function App() {
               ))}
             </div>
 
-            {/* Location row */}
+            {/* Location */}
             <div className="bg-orange-50 border border-orange-100 rounded-xl p-4 mb-5">
               <p className="text-xs text-gray-500 mb-2">📍 Your location (for regional context)</p>
               <div className="flex items-center justify-between gap-4">
@@ -207,11 +203,10 @@ export default function App() {
           </div>
         )}
 
-        {/* ── RESULTS ── */}
+        {/* Results */}
         {result && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-            {/* Risk card */}
             <div className="flex flex-col gap-6">
               <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
                 <div className="flex items-center justify-between mb-4">
@@ -247,18 +242,17 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Weather used */}
               {result.weather && (
                 <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
                   <h3 className="text-sm font-medium text-gray-700 mb-4">Weather Data Used</h3>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { label: "Temperature",         value: `${result.weather.temp}°C`,    icon: "🌡️" },
-                      { label: "Humidity",             value: `${result.weather.humidity}%`, icon: "💧" },
-                      { label: "Wind Speed",           value: `${result.weather.wind} km/h`, icon: "💨" },
-                      { label: "Cloud Cover",          value: `${result.weather.clouds}%`,   icon: "☁️" },
-                      { label: "Dew Point",            value: `${result.weather.dewpoint}°C`,icon: "🌫️" },
-                      { label: "Fire Weather Index",   value: result.weather.fwi,            icon: "🔥" },
+                      { label: "Temperature",       value: `${result.weather.temp}°C`,     icon: "🌡️" },
+                      { label: "Humidity",           value: `${result.weather.humidity}%`,  icon: "💧" },
+                      { label: "Wind Speed",         value: `${result.weather.wind} km/h`,  icon: "💨" },
+                      { label: "Cloud Cover",        value: `${result.weather.clouds}%`,    icon: "☁️" },
+                      { label: "Dew Point",          value: `${result.weather.dewpoint}°C`, icon: "🌫️" },
+                      { label: "Fire Weather Index", value: result.weather.fwi,             icon: "🔥" },
                     ].map((item) => (
                       <div key={item.label} className="bg-gray-50 rounded-xl px-3 py-2.5">
                         <p className="text-xs text-gray-400">{item.icon} {item.label}</p>
